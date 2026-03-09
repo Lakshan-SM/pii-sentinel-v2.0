@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PII Sentinel - Advanced Data Privacy Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1><i class="fa-solid fa-shield-halved"></i> PII Sentinel</h1>
+            <p>Client-Side Data Leakage Prevention & Sanitization</p>
+        </header>
+
+        <div class="config-panel">
+            <div class="config-group">
+                <h3>Detection Scope</h3>
+                <label><input type="checkbox" id="toggle-email" checked> Emails</label>
+                <label><input type="checkbox" id="toggle-phone" checked> Phone Numbers</label>
+                <label><input type="checkbox" id="toggle-ipv4" checked> IPv4 Addresses</label>
+                <label><input type="checkbox" id="toggle-cc" checked> Credit Cards (Luhn Validated)</label>
+                <label><input type="checkbox" id="toggle-apikey" checked> API Keys / Tokens</label>
+            </div>
+            <div class="config-group">
+                <h3>Redaction Style</h3>
+                <div class="radio-group">
+                    <label><input type="radio" name="mask-mode" value="full" checked> Full Redaction <span>[EMAIL REMOVED]</span></label>
+                    <label><input type="radio" name="mask-mode" value="partial"> Partial Masking <span>j***@gmail.com</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="workspace">
+            <div class="pane input-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-file-import"></i> Raw Data</h2>
+                    <div class="pane-actions">
+                        <input type="file" id="file-upload" hidden accept=".txt,.log,.json,.csv">
+                        <button class="btn-secondary" onclick="document.getElementById('file-upload').click()">
+                            <i class="fa-solid fa-upload"></i> Upload File
+                        </button>
+                        <button class="btn-secondary" id="btn-clear">Clear</button>
+                    </div>
+                </div>
+                <textarea id="input-text" placeholder="Paste text logs, customer tickets, or chat history here..."></textarea>
+            </div>
+
+            <div class="pane output-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-file-shield"></i> Safe Output</h2>
+                    <div class="pane-actions">
+                        <button class="btn-secondary" id="btn-copy"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <button class="btn-secondary" id="btn-download"><i class="fa-solid fa-download"></i> Save</button>
+                    </div>
+                </div>
+                <textarea id="output-text" readonly placeholder="Redacted output will appear here..."></textarea>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button id="btn-scan" class="btn-primary"><i class="fa-solid fa-radar"></i> Scan & Redact</button>
+        </div>
+
+        <div class="stats-dashboard" id="stats-dashboard" style="display: none;">
+            <div class="stat-card">
+                <span class="stat-label">Total Found</span>
+                <span class="stat-value" id="stat-total">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Emails</span>
+                <span class="stat-value" id="stat-email">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Phones</span>
+                <span class="stat-value" id="stat-phone">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Critical (CC/Key)</span>
+                <span class="stat-value" id="stat-critical">0</span>
+            </div>
+        </div>
+
+        <footer>
+            Built by <strong>Lakshan</strong> | Co-authored with <strong>Gemini AI</strong>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
